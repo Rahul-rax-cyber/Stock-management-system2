@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Master Items validation and access rules
+    match /masterItems/{itemId} {
+      allow read: if true;
+      allow write: if request.resource.data.id is string 
+                   && request.resource.data.name is string
+                   && request.resource.data.name.size() > 0;
+    }
+
+    // Daily Logs validation and access rules
+    match /dailyLogs/{date} {
+      allow read: if true;
+      allow write: if request.resource.data.id is string
+                   && request.resource.data.date is string;
+    }
+  }
+}

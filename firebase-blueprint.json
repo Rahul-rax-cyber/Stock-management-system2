@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "MasterItem": {
+      "title": "MasterItem",
+      "description": "A catalog product configuration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "defaultPrice": { "type": "number" },
+        "defaultOpenStock": { "type": "number" }
+      },
+      "required": ["id", "name", "defaultPrice", "defaultOpenStock"]
+    },
+    "DailyLog": {
+      "title": "DailyLog",
+      "description": "Daily ledger tracking stock, cash details, and expenses",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "notes": { "type": "string" },
+        "isCompleted": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "date", "isCompleted", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/masterItems/{itemId}": {
+      "schema": "MasterItem",
+      "description": "Collection of all configured master items in the inventory catalog"
+    },
+    "/dailyLogs/{date}": {
+      "schema": "DailyLog",
+      "description": "Ledger logs for each individual date"
+    }
+  }
+}
